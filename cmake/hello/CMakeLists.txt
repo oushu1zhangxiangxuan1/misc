@@ -1,0 +1,5 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(HELLO)
+# SET(DIR_SRCS /Users/johnsaxon/test/github.com/oushu1zhangxiangxuan1/misc/cmake/hello/main.cpp)
+AUX_SOURCE_DIRECTORY(. DIR_SRCS)
+ADD_EXECUTABLE(hello ${DIR_SRCS})
