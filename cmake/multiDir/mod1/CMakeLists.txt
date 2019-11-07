@@ -1,0 +1,1 @@
+add_library(mod1 SHARED mod1.c mod1_func.c)
