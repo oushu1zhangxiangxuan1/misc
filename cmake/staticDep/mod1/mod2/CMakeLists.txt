@@ -1,0 +1,1 @@
+add_library(mod2 STATIC mod2.c)
