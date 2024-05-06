@@ -1,0 +1,24 @@
+{% set system_message = namespace(value='') %}
+
+{% for message in messages %}
+    {% if message.role not in ('user', 'assistant', 'system') %}
+        {{ raise_exception('Unsupported message role! Only user, assistant, and system roles are supported.') }}
+    {% endif %}
+    {% if message['role'] == 'system' %}
+        {% set system_message.value = system_message.value + ' ' + message['content'] %}
+    {% endif %}
+{% endfor %}
+
+{% set system_message.value = system_message.value.strip() %}
+{% if system_message.value != '' %}
+    {{bos_token + ' ' + system_message.value + ' ' + eos_token}}
+{% endif %}
+
+{{bos_token}}
+{% for message in messages %}
+    {% if message['role'] == 'user' %}
+        {{ ' [INST] ' + message['content'] + ' [/INST]' }}
+    {% elif message['role'] == 'assistant' %}
+        {{ ' ' + message['content'] + ' ' + eos_token}}
+    {% endif %}
+{% endfor %}
